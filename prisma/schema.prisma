@@ -1,6 +1,7 @@
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 generator client {
@@ -11,7 +12,7 @@ model User {
   id           String              @id @default(cuid())
   email        String              @unique
   passwordHash String
-  role         String              @default("USER") // "USER" | "ADMIN"
+  role         String              @default("USER")
   createdAt    DateTime            @default(now())
   favourites   FavouriteCategory[]
   reminders    Reminder[]
@@ -21,7 +22,7 @@ model User {
 model Event {
   id           String            @id @default(cuid())
   title        String
-  category     String            // MUSIC | WORKSHOP | FOOD | SPORTS | KIDS
+  category     String
   city         String
   startsAt     DateTime
   priceInPaise Int
@@ -59,7 +60,7 @@ model EventCardDesign {
   userId    String
   eventId   String
   theme     String
-  stickers  String   // JSON string array, max 3
+  stickers  String
   updatedAt DateTime @updatedAt
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
