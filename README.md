@@ -1,6 +1,8 @@
 # Community Events Board
 
-A production-quality Community Events Board built with Next.js (App Router), TypeScript, Prisma ORM, and SQLite. Clean, readable, accessible, and structured for real-world explainability.
+A production-quality Community Events Board built with Next.js 14 (App Router), TypeScript, Prisma ORM, PostgreSQL (Neon), and Tailwind CSS. Clean, responsive, accessible, and structured for real-world explainability.
+
+- **Live Demo**: [Deploy on Vercel](https://community-event-board-app11.vercel.app) *(Replace with your live Vercel URL)*
 
 ---
 
@@ -12,12 +14,13 @@ git clone <repository-url>
 cd community-events-board
 npm install
 
-# 2. Copy environment file
+# 2. Setup environment variables
 cp .env.example .env
+# Set your DATABASE_URL, DIRECT_URL, and JWT_SECRET in .env
 
-# 3. Run database migrations & seed initial events
-npx prisma migrate dev
-npx prisma db seed
+# 3. Push schema & seed initial events
+npx prisma db push
+npm run prisma:seed
 
 # 4. Start development server
 npm run dev
@@ -69,13 +72,13 @@ All endpoints return uniform JSON:
 
 1. **Email Dispatcher**: Reminders store interest in the database; an asynchronous background worker (e.g., BullMQ or Cron) is needed to send actual email/SMS alerts before events start.
 2. **Ticket Checkout / Payments**: Prices are stored in paise and formatted in INR, but actual payment gateway integration (e.g. Razorpay/Stripe) is out of scope.
-3. **Image Uploads**: Images currently use URLs (Unsplash/CDN). A direct S3 / Cloudinary multipart file upload widget can be added in future iterations.
+3. **Image Uploads**: Images currently use direct URLs (Unsplash/CDN). A direct S3 / Cloudinary multipart file upload widget can be added in future iterations.
 
 ---
 
 ## 5. AI Tools Note
 
-> *Used Claude/Cursor for scaffolding & boilerplate; I reviewed and can explain all code line by line.*
+> *Used AI tools (Cursor / Claude) for initial scaffolding and boilerplate code. All code, database schemas, middleware authentication, and business logic have been reviewed and refined by me, and I can explain every line.*
 
 ---
 
